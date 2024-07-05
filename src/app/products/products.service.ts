@@ -14,11 +14,11 @@ export class ProductsService {
     constructor(private http: HttpClient) { }
 
     getProducts(): Observable<Product[]> {
-        if( ! ProductsService.productslist )
+        if ( ! ProductsService.productslist )
         {
-            this.http.get<any>('assets/products.json').subscribe(data => {
-                ProductsService.productslist = data.data;
-                
+            this.http.get<any>('http://localhost:3000/api/products').subscribe(data => {
+                ProductsService.productslist = data;
+
                 this.products$.next(ProductsService.productslist);
             });
         }
@@ -31,37 +31,59 @@ export class ProductsService {
     }
 
     create(prod: Product): Observable<Product[]> {
+        this.http.post<Product>('http://localhost:3000/api/products', prod).subscribe(
+          response => {
+              ProductsService.productslist.push(response);
+              this.products$.next(ProductsService.productslist);
+            },
+            error => {
+              console.log(error);
+            }
+        );
 
-        ProductsService.productslist.push(prod);
-        this.products$.next(ProductsService.productslist);
-        
         return this.products$;
     }
 
     update(prod: Product): Observable<Product[]>{
         ProductsService.productslist.forEach(element => {
-            if(element.id == prod.id)
+            if (element._id === prod._id)
             {
-                element.name = prod.name;
-                element.category = prod.category;
-                element.code = prod.code;
-                element.description = prod.description;
-                element.image = prod.image;
-                element.inventoryStatus = prod.inventoryStatus;
-                element.price = prod.price;
-                element.quantity = prod.quantity;
-                element.rating = prod.rating;
+                this.http.put<Product>('http://localhost:3000/api/products/' + prod._id, prod).subscribe(
+                  response => {
+                    element.name = prod.name;
+                    element.category = prod.category;
+                    element.code = prod.code;
+                    element.description = prod.description;
+                    element.image = prod.image;
+                    element.inventoryStatus = prod.inventoryStatus;
+                    element.price = prod.price;
+                    element.quantity = prod.quantity;
+                    element.rating = prod.rating;
+
+                    this.products$.next(ProductsService.productslist);
+                  },
+                  error => {
+                    console.log(error);
+                  }
+                );
             }
         });
-        this.products$.next(ProductsService.productslist);
 
         return this.products$;
     }
 
 
-    delete(id: number): Observable<Product[]>{
-        ProductsService.productslist = ProductsService.productslist.filter(value => { return value.id !== id } );
-        this.products$.next(ProductsService.productslist);
+    delete(id: string): Observable<Product[]>{
+        this.http.delete<Product>('http://localhost:3000/api/products/' + id).subscribe(
+            response => {
+                ProductsService.productslist = ProductsService.productslist.filter(value => value._id !== id );
+                this.products$.next(ProductsService.productslist);
+            },
+            error => {
+                console.log(error);
+            }
+        );
+
         return this.products$;
     }
 }

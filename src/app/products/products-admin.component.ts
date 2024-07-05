@@ -16,7 +16,7 @@ import { CrudItemOptions } from 'app/shared/utils/crud-item-options/crud-item-op
 })
 export class ProductsAdminComponent extends BaseTableLoader implements OnInit {
 
-  public payload$: BehaviorSubject<ProductPayload> = new BehaviorSubject<ProductPayload>({products:[],total:0});
+  public payload$: BehaviorSubject<ProductPayload> = new BehaviorSubject<ProductPayload>({products: [], total: 0});
   public conf: CrudItemOptions[] = PRODUCT_TABLE_CONF;
   public entity = Product;
 
@@ -29,19 +29,19 @@ export class ProductsAdminComponent extends BaseTableLoader implements OnInit {
   ngOnInit(): void {
 
     // Display data table
-    this.productsService.getProducts().subscribe(products => 
+    this.productsService.getProducts().subscribe(products =>
     {
-      this.payload$.next({products: products, total: products.length})
+      this.payload$.next({products, total: products.length});
     });
 
   }
 
-  public onDeleteProduct(ids: number[]): void {
+  public onDeleteProduct(ids: string[]): void {
     this.delete(ids[0]);
   }
 
   public onSave(product: Product): void {
-    product.id ? this.update(product) : this.create(product);
+    product._id ? this.update(product) : this.create(product);
   }
 
   private create(product: Product): void {
@@ -52,7 +52,7 @@ export class ProductsAdminComponent extends BaseTableLoader implements OnInit {
     this.handleReload(this.productsService.update(product));
   }
 
-  private delete(id: number): void {
+  private delete(id: string): void {
     this.handleReload(this.productsService.delete(id));
   }
 }

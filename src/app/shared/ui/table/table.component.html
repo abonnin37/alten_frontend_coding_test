@@ -7,7 +7,7 @@
   (newClicked)="onNew()"
   (manageColumnsClicked)="manageColumns()">
 </app-table-toolbar>
- 
+
 <p-table #dataTable [columns]="cols"
   [value]="data"
   class="table"
@@ -78,7 +78,7 @@
       <td>
         <app-table-actions-cell
           (editClicked)="onEdit(rowData)"
-          (deleteClicked)="onDelete(rowData.id)">
+          (deleteClicked)="onDelete(rowData._id)">
         </app-table-actions-cell>
       </td>
     </tr>

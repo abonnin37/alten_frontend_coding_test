@@ -28,7 +28,7 @@ export class TableComponent<T> implements OnChanges {
   @Input() public readonly totalRecords: number;
   @Input() public readonly multiSelect: boolean;
   @Output() saved: EventEmitter<T> = new EventEmitter();
-  @Output() deleted: EventEmitter<number[]> = new EventEmitter();
+  @Output() deleted: EventEmitter<string[]> = new EventEmitter();
   @Output() lazyLoaded: EventEmitter<TableLazyLoadEvent> = new EventEmitter();
 
   public cols: TableColumn[];
@@ -72,7 +72,7 @@ export class TableComponent<T> implements OnChanges {
     this.entryEditionDialogDisplayed = true;
   }
 
-  public onDelete(id: number): void {
+  public onDelete(id: string): void {
     this.deleted.emit([id]);
   }
 
@@ -96,9 +96,9 @@ export class TableComponent<T> implements OnChanges {
     this.editedEntry = null;
     this.entryEditionDialogDisplayed = false;
   }
-  
-  public onDeleteEntry(id: number): void{
-    this.deleted.emit([id])
+
+  public onDeleteEntry(id: string): void{
+    this.deleted.emit([id]);
     this.entryEditionDialogDisplayed = false;
   }
 
@@ -140,7 +140,7 @@ export class TableComponent<T> implements OnChanges {
       case ControlType.TABLE: {
         return this.tableCellRenderer(cellValue);
       }
-      case ControlType.SELECT: {        
+      case ControlType.SELECT: {
         return this.selectCellRenderer(cellValue, control);
       }
       case ControlType.MULTISELECT: {
@@ -161,7 +161,7 @@ export class TableComponent<T> implements OnChanges {
   private tableCellRenderer(cellValue: unknown): string {
     return this.isCellArray(cellValue) ? cellValue.length.toString() : '';
   }
-  
+
   private selectCellRenderer(cellValue: unknown, column: CrudItemOptions): string {
     const option = this.getOption(column, cellValue);
     if (!option) return '';
