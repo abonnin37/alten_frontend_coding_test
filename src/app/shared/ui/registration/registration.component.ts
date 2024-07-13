@@ -37,7 +37,6 @@ export class RegistrationComponent implements OnInit {
   }
 
   signup = () => {
-    console.log(this.registrationForm.value);
     this.authService.signup(this.registrationForm.value).subscribe(
       data => {
         this.snackBar.open(data.message, 'Fermer', {

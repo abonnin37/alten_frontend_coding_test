@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ProductsComponent } from './products/products.component';
 import { ProductsAdminComponent } from './products/products-admin.component';
+import {AuthGuard} from './auth.guard';
 
 const routes: Routes = [
   {
@@ -18,7 +19,9 @@ const routes: Routes = [
     path: 'admin',
     component: ProductsAdminComponent,
     // loadChildren: () => import('./products/products.module').then(m => m.ProductsModule),
-    data: { name: 'Admin', path: 'admin' }
+    data: { name: 'Admin', path: 'admin' },
+    canActivate: [AuthGuard],
+
   }
   // { path: '**', redirectTo: 'not-found' }
 ];
