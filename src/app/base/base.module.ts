@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { ThemeToggleButtonComponent } from 'app/base/theme-toggle-button/theme-toggle-button.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -17,9 +18,10 @@ import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
     BreadcrumbComponent
   ],
   imports: [
-    CommonModule,
-    SharedModule,
-    ReactiveFormsModule
+      CommonModule,
+      SharedModule,
+      ReactiveFormsModule,
+      MatButtonModule
   ],
   exports: [NavbarComponent, FooterComponent, SidenavComponent, BreadcrumbComponent]
 })

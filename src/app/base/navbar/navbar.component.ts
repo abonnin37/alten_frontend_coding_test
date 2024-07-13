@@ -1,5 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import {RegistrationDialogComponent} from '../../shared/ui/registration-dialog/registration-dialog.component';
+import {MatDialog} from '@angular/material/dialog';
+import {DialogTypeEnum, Login} from '../../shared/models/auth.class';
 
 @Component({
   selector: 'app-navbar',
@@ -7,8 +10,12 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
+  constructor(
+    public dialog: MatDialog
+  ) {}
 
-  @Input() isAuthenticated = false;
+  @Input() user: Login;
+  @Input() logout: () => void;
 
   public userName: string;
   public userMenuItems: MenuItem[] = [
@@ -18,9 +25,14 @@ export class NavbarComponent {
     { label: 'Logout', icon: 'pi pi-fw pi-power-off', command: null },
   ];
 
-  constructor(
 
-  ) {}
-
-
+  protected readonly DialogTypeEnum = DialogTypeEnum;
+  openDialog(dialogType: DialogTypeEnum): void {
+    const dialogRef = this.dialog.open(RegistrationDialogComponent, {
+      width: '300px',
+      data: {
+        dialogType
+      }
+    });
+  }
 }

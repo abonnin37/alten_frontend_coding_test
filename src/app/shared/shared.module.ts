@@ -17,11 +17,17 @@ import { DynamicFormControlComponent } from './ui/dynamic-form-control/dynamic-f
 import { TableToolbarComponent } from './ui/table/table-toolbar/table-toolbar.component';
 import { TableFilterCellComponent } from './ui/table/table-filter-cell/table-filter-cell.component';
 import { TableActionsCellComponent } from './ui/table/table-actions-cell/table-actions-cell.component';
+import { RegistrationComponent } from './ui/registration/registration.component';
+import { RegistrationDialogComponent } from './ui/registration-dialog/registration-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [
     InfoIconComponent,
-
     AnimatedButtonComponent,
     ListComponent,
     FileUploadInputComponent,
@@ -32,7 +38,9 @@ import { TableActionsCellComponent } from './ui/table/table-actions-cell/table-a
     DynamicFormControlComponent,
     TableToolbarComponent,
     TableFilterCellComponent,
-    TableActionsCellComponent
+    TableActionsCellComponent,
+    RegistrationComponent,
+    RegistrationDialogComponent
   ],
   providers: [
     DynamicFormService,
@@ -44,6 +52,11 @@ import { TableActionsCellComponent } from './ui/table/table-actions-cell/table-a
     ReactiveFormsModule,
     FormsModule,
     PrimeNGModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSnackBarModule
   ],
   exports: [
     CommonModule,
@@ -55,7 +68,9 @@ import { TableActionsCellComponent } from './ui/table/table-actions-cell/table-a
     FileUploadInputComponent,
     PrimeNGModule,
     DynamicFormComponent,
-    TableComponent
+    TableComponent,
+    RegistrationComponent,
+    RegistrationDialogComponent
   ]
 })
 export class SharedModule { }

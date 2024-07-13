@@ -1,0 +1,7 @@
+<h1 mat-dialog-title>{{ dialogType }}</h1>
+<div mat-dialog-content>
+  <app-registration [dialogType]="dialogType"></app-registration>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="closeRegistrationDialog()">Annuler</button>
+</div>
