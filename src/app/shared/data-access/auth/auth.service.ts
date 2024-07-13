@@ -8,6 +8,7 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 })
 export class AuthService {
   public isAuthenticated: boolean;
+  public user: Login;
   private signupResponse$: BehaviorSubject<SignupResponse> = new BehaviorSubject<SignupResponse>(null);
   public login$: BehaviorSubject<Login> = new BehaviorSubject<Login>(null);
 
@@ -30,6 +31,7 @@ export class AuthService {
     this.http.post<Login>('http://localhost:3000/api/auth/login', login).subscribe(
       response => {
         this.isAuthenticated = true;
+        this.user = response;
         this.login$.next(response);
       },
       error => {
