@@ -5,8 +5,10 @@
 
     <!-- Admin -->
     <div class="user-button">
-      <span>John Doe</span>
-      <button pButton icon="pi pi-user" type="button" class="p-button-rounded p-button-outlined"></button>
+      <span *ngIf="user">{{ user.email }}</span>
+      <button *ngIf="user" mat-raised-button color="primary" (click)="logout()">Déconnexion</button>
+      <button *ngIf="!user" mat-raised-button color="primary" (click)="openDialog(DialogTypeEnum.Login)">Connexion</button>
+      <button *ngIf="!user" mat-raised-button (click)="openDialog(DialogTypeEnum.Signup)">Inscription</button>
     </div>
   </div>
 

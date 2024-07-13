@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Product, ProductPayload } from './product.class';
+import { Product, ProductPayload } from '../shared/models/product.class';
 import {PRODUCT_TABLE_CONF} from './products-admin-table.conf';
-import { ProductsService } from './products.service';
+import { ProductsService } from '../shared/data-access/products/products.service';
 
 import { BehaviorSubject } from 'rxjs';
 
